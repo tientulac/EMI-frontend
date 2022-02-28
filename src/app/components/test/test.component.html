@@ -1,0 +1,103 @@
+<section class="content-header" style="padding: 0.5% !important;">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-md-6">
+                <ol class="breadcrumb float-sm-left">
+                    <li class="breadcrumb-item">
+                        <a><i class="fas fa-home"></i> &nbsp;Home</a>
+                    </li>
+                    <li class="breadcrumb-item active">Test</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- <section class="content cus-body">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="tab-content">
+                        <div class="active tab-pane">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    Show
+                                    <select [(value)]="pageSize" (change)="getData()">
+                                        <option *ngFor="let size of pageSizes" [ngValue]="size">
+                                            {{ size }}
+                                        </option>
+                                    </select>
+                                    results
+                                </div>
+                                <div class="col-md-6">
+                                    <button type="button" class="btn btn-sm btn-outline-secondary"
+                                        ngbTooltip="Ẩn/hiện bộ lọc" placement="left"
+                                        style="float: right; margin: 0 0 5px 5px;" (click)="buttonFilter()">
+                                        <i class="fas fa-filter"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-sm btn-outline-secondary" placement="left"
+                                        ngbTooltip="Tải lại" style="float: right; margin-bottom: 5px;"
+                                        (click)="refesh()">
+                                        <i class="fas fa-redo-alt"></i>
+                                    </button>
+                                    <input class="__searchFast" type="text" placeholder="Search quickly..."
+                                    [(ngModel)]="searchString">
+                                </div>
+                            </div>
+                            <div class="table-responsive" style="max-height: 60vh; margin-bottom: 15px;">
+                                <table class="table table-bordered table-sm" id="tableData">
+                                    <thead>
+                                        <th class="_th_tbl">
+                                            <div class="_th_tbl">Short name</div>
+                                        </th>
+                                        <th class="_th_tbl">
+                                            <div class="_th_tbl">Native name</div>
+                                        </th>
+                                        <th class="_th_tbl">
+                                            <div class="_th_tbl">Description</div>
+                                        </th>
+                                        <th class="_th_tbl">
+                                            <div class="_th_tbl">Action</div>
+                                        </th>
+                                    </thead>
+                                    <tbody>
+                                        <tr
+                                            *ngFor="let p of dataTable |filter: searchString | paginate: { itemsPerPage: pageSize, currentPage: page,totalItems: totalItem }; let i=index; let odd = odd">
+                                            <td style="width: 8vw;text-align: center;">{{p.shortName}}</td>
+                                            <td>{{p.nativeName}}</td>
+                                            <td>{{p.description}}</td>
+                                            <td class="text-center" style="white-space: nowrap;width: 8vw;">
+                                                <button class="btn btn-sm btn-outline-warning" placement="left"
+                                                    ngbTooltip="Edit "
+                                                    style="margin-right: 0.1rem;">
+                                                    <i class="fas fa-edit"></i>
+                                                </button>
+                                                <button class="btn btn-sm btn-outline-danger" placement="left" ngbTooltip="Delete "                                                    
+                                                    style="margin-right: 0.1rem;">
+                                                    <i class="fas fa-trash-alt"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                       
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <p style="float: left; font-weight: bold;">
+                                        Total {{ totalItem|number}} result, filtered
+                                        {{ totalItemFilter|number }} result
+                                    </p>
+                                </div>
+                                <div class="col-md-6 ">
+                                    <pagination-controls class="float-right" (pageChange)="pageChange(page = $event)"
+                                        nextLabel="Next" previousLabel="Preview"></pagination-controls>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section> -->
