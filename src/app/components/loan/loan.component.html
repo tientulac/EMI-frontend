@@ -1,1 +1,169 @@
-<p>loan works!</p>
+<section class="content-header" style="padding: 0.5% !important;">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-md-6">
+                <ol class="breadcrumb float-sm-left">
+                    <li class="breadcrumb-item">
+                        <a><i class="fas fa-home"></i> &nbsp;Home</a>
+                    </li>
+                    <li class="breadcrumb-item active">Loan</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="content cus-body">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="tab-content">
+                        <div class="active tab-pane">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    Show
+                                    <select [(value)]="pageSize" (change)="getData()">
+                                        <option *ngFor="let size of pageSizes" [ngValue]="size">
+                                            {{ size }}
+                                        </option>
+                                    </select>
+                                    results
+                                </div>
+                                <div class="col-md-6">
+                                    <button type="button" class="btn btn-sm btn-outline-secondary"
+                                        ngbTooltip="Ẩn/hiện bộ lọc" placement="left"
+                                        style="float: right; margin: 0 0 5px 5px;" (click)="buttonFilter()">
+                                        <i class="fas fa-filter"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-sm btn-outline-secondary" placement="left"
+                                        ngbTooltip="Tải lại" style="float: right; margin-bottom: 5px;"
+                                        (click)="refesh()">
+                                        <i class="fas fa-redo-alt"></i>
+                                    </button>
+                                    <input class="__searchFast" type="text" placeholder="Search quickly..."
+                                    [(ngModel)]="searchString">
+                                </div>
+                            </div>
+                            <div class="table-responsive" style="max-height: 60vh; margin-bottom: 15px;">
+                                <table class="table table-bordered table-sm" id="tableData">
+                                    <thead>
+                                        <th class="_th_tbl">
+                                            <div class="_th_tbl">Customer ID</div>
+                                        </th>
+                                        <th class="_th_tbl">
+                                            <div class="_th_tbl">Income</div>
+                                        </th>
+                                        <th class="_th_tbl">
+                                            <div class="_th_tbl">Customer name</div>
+                                        </th>
+                                        <th class="_th_tbl">
+                                            <div class="_th_tbl">Action</div>
+                                        </th>
+                                    </thead>
+                                    <tbody style="text-align: center;">
+                                        <tr
+                                            *ngFor="let p of dataTable |filter: searchString | paginate: { itemsPerPage: pageSize, currentPage: page,totalItems: totalItem }; let i=index; let odd = odd">
+                                            <td>{{p.id}}</td>
+                                            <td>{{p.income | currency}}</td>
+                                            <td>{{p.fullName}}</td>
+                                            <td class="text-center" style="white-space: nowrap;width: 8vw;">
+                                                <button class="btn btn-sm btn-outline-warning" placement="left" *ngIf="!(p.income<2000) "
+                                                    ngbTooltip="Loan of this customer " (click)="open(AddModal, 'ls', 'Update', p)"
+                                                    style="margin-right: 0.1rem;">
+                                                    <i class="fas fa-edit"></i>
+                                                </button>
+                                                <button class="btn btn-sm btn-outline-warning" placement="left" *ngIf="p.income<2000"
+                                                    ngbTooltip="Loan of this customer " (click)="warning(p.income)"
+                                                    style="margin-right: 0.1rem;">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                                <button class="btn btn-sm btn-outline-danger" placement="left" ngbTooltip="Pay the loan "  (click)="open(AddModal, 'ls', 'Pay', p)"                                               
+                                                    style="margin-right: 0.1rem;">
+                                                    <i class="fas fa-trash-alt"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                       
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <p style="float: left; font-weight: bold;">
+                                        Total {{ totalItem|number}} result, filtered
+                                        {{ totalItemFilter|number }} result
+                                    </p>
+                                </div>
+                                <div class="col-md-6 ">
+                                    <pagination-controls class="float-right" (pageChange)="pageChange(page = $event)"
+                                        nextLabel="Next" previousLabel="Preview"></pagination-controls>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-----------------------------------------------ADD MODAL ------------------------------------------------->
+<ng-template #AddModal let-modal>
+    <div class="modal-header m-header text-center" style="padding-top: 0px; padding-bottom: 0px;">
+        <h4 class="modal-title h-title w-100"> {{titleModal}}</h4>
+        <span (click)="Dismiss()" aria-hidden="true" style="font-size: 25px;">&times;</span>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal" [formGroup]="AddForm">       
+          <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-12">
+                    <label class="col-md-10 require">Name of the loan</label>
+                    <input type="text" class="form-control" [ngClass]="{ 'is-invalid': submitted && checkvalue.name.errors }"
+                     formControlName="name" placeholder="input...">
+                     <div *ngIf="submitted && checkvalue.name.errors" class="invalid-feedback">
+                      <div *ngIf="checkvalue.name.errors.required">
+                        This file is require!
+                      </div>
+                    </div>
+                    <label class="col-md-10 require">Amount</label>
+                      <input type="number" class="form-control" [ngClass]="{ 'is-invalid': submitted && checkvalue.amount.errors }"
+                       formControlName="amount" placeholder="input...">
+                       <div *ngIf="submitted && checkvalue.amount.errors" class="invalid-feedback">
+                        <div *ngIf="checkvalue.amount.errors.required">
+                          This file is require!
+                        </div>
+                    </div>
+                    <label class="col-md-10 require">Tenure</label>
+                      <input type="number" class="form-control" [ngClass]="{ 'is-invalid': submitted && checkvalue.tenure.errors }"
+                       formControlName="tenure" placeholder="input...">
+                       <div *ngIf="submitted && checkvalue.tenure.errors" class="invalid-feedback">
+                        <div *ngIf="checkvalue.tenure.errors.required">
+                          This file is require!
+                        </div>
+                    </div>
+                    <label class="col-md-10 require">Rate</label>
+                    <input type="text" class="form-control" [ngClass]="{ 'is-invalid': submitted && checkvalue.rate.errors }"
+                     formControlName="rate" placeholder="input...">
+                     <div *ngIf="submitted && checkvalue.rate.errors" class="invalid-feedback">
+                      <div *ngIf="checkvalue.rate.errors.required">
+                        This file is require!
+                    </div>
+                    </div>
+                </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <div class="float-right">
+          <button type="button" class="btn btn-md btn-outline-success" (click)="onSubmit()">
+            <i class="fa-plus-circle fas"></i> {{titleSubmit}}
+          </button>
+          <button type="button" class="btn btn-md btn-outline-danger" (click)="onClose()"
+            style="margin-left: 1em;">
+            <i class="far fa-times-circle"></i> Close
+          </button>
+        </div>
+      </div>
+</ng-template>

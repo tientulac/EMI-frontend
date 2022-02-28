@@ -78,18 +78,18 @@ export class BaseComponent implements OnInit {
 
   ngOnInit(): void {
     this.com = new common(this.router);
-    this.com.CheckLogin();
-    var a = this.com.getUserinfo();
-    this.Token = a.Token;
-    this.UserID_get = a.Info.UserID;
-    this.UserName_get = a.Info.UserName;
+    // this.com.CheckLogin();
+    // var a = this.com.getUserinfo();
+    // this.Token = a.Token;
+    // this.UserID_get = a.Info.UserID;
+    // this.UserName_get = a.Info.UserName;
   }
 
   titleModal: any = ""
   isInsert: any
   closeResult: string
   DateNow = this.datePipe.transform(new Date(), 'yyyy-MM-dd');
-  Token: any = this.getToken()
+  // Token: any = this.getToken()
   com: common;
   arrNumberPage: any = [];
   arrNumberPage_chil: any
@@ -222,15 +222,15 @@ export class BaseComponent implements OnInit {
     return str;
   }
 
-  getToken() {
-    this.com = new common(this.router);
-    this.com.CheckLogin();
-    var a = this.com.getUserinfo();
-    this.Token = a.Token;
-    this.UserID_get = a.Info.UserID;
-    this.UserName_get = a.Info.UserName;
-    return a.Token
-  }
+  // getToken() {
+  //   this.com = new common(this.router);
+  //   this.com.CheckLogin();
+  //   var a = this.com.getUserinfo();
+  //   this.Token = a.Token;
+  //   this.UserID_get = a.Info.UserID;
+  //   this.UserName_get = a.Info.UserName;
+  //   return a.Token
+  // }
 
   public noWhitespaceValidator(control: FormControl) {
     const isWhitespace = (control.value || '').trim().length === 0;

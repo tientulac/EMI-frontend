@@ -8,27 +8,23 @@ import { BaseComponent } from '../base/base.component';
 })
 export class TestComponent extends BaseComponent implements OnInit{
 
+  dataLoan: any;
+
   ngOnInit(): void {
     this.getData();
   }
 
   getData() {
     this.TestService.getListCustomer().subscribe(res => {
-      if (res) {
-        this.dataTable = res;
-        console.log(res)
-        this.spinner.hide();
-        this.totalItem = res ? res : 0
-        this.totalItemFilter = res ? res.length : 0
-      }
-      else
-      {
-        this.toastr.warning(res.Message);
-        this.spinner.hide();
-      }
-    }, (err) => {
-      this.toastr.error(err.message);
-        this.spinner.hide();
+      this.dataTable = res;
+      console.log(res);
+      console.log(123);
+      this.TestService.getListLoan().subscribe(res =>{
+        this.dataLoan = res;
+      })
+      this.spinner.hide();
+      this.totalItem = res ? res : 0
+      this.totalItemFilter = res ? res.length : 0
     })
   }
 
